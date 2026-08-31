@@ -113,7 +113,7 @@ graph_Fig1b_YPD2 <- graph_Fig1b_YPD + ggtitle("Inhibition halos produced after\n
   theme(legend.title = element_text(size = 14, face = "bold"))+
   scale_x_discrete(labels = c("CTRL YPD" = expression(bold("YPD")), "KCl 0.25" = expression(bold("KCl 0.25 M")),
                               "KCl 0.5" = expression(bold("KCL 0.5 M")), "KCl 1" = expression(bold("KCL 1 M"))))+
-  labs(tag = "b") + theme(plot.tag = element_text(face = "bold", size = 20))
+  theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig1b_YPD2
 
 #### MI, MIF, YPD CTRLS ####
@@ -190,7 +190,7 @@ graph_Fig1b_YPD_MI2 <- graph_Fig1b_YPD_MI + ggtitle("Inhibition halos produced b
               tip_length = 0.05, textsize=8, vjust = 0.4)+
   guides(fill="none")+
   scale_x_discrete(labels = c("CTRL YPD" = expression(bold("YPD")), "CTRL MI" = expression(bold("MI"))))+
-  labs(tag = "c") + theme(plot.tag = element_text(face = "bold", size = 20))
+  theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig1b_YPD_MI2
 
 ### Figure 2b ### # # #
@@ -221,7 +221,7 @@ graph_Fig2b_CTRLS2 <- graph_Fig2b_CTRLS + ggtitle("Inhibition halos produced by 
   guides(fill="none")+
   scale_x_discrete(labels = c("CTRL YPD" = expression(bold("YPD")), "CTRL MI" = expression(bold("MI")), 
                               "CTRL MIF" = expression(bold("MIF"))))+
-  labs(tag = "b") + theme(plot.tag = element_text(face = "bold", size = 20))
+  theme(plot.tag = element_text(face = "bold", size = 20))
   
 graph_Fig2b_CTRLS2
 
@@ -317,7 +317,7 @@ graph_Fig1d_MI_OS2 <- graph_Fig1d_MI_OS + ggtitle("Inhibition halos after osmoti
   theme(legend.text = element_text(size = 12, face = "bold"))+
   theme(legend.title = element_text(size = 14, face = "bold"))+
   scale_x_discrete(labels = c("CTRL MI" = expression(bold("MI")), "KCl" = expression(bold("KCl"))))+
-  labs(tag = "d") + theme(plot.tag = element_text(face = "bold", size = 20))
+  theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig1d_MI_OS2
 
 
@@ -385,7 +385,7 @@ graph_Fig2c_SN_CTRLS2 <- graph_Fig2c_SN_CTRLS + ggtitle("Inhibition halos produc
               tip_length = 0.03, textsize=8, vjust = 0.4)+
   guides(fill="none")+
   scale_x_discrete(labels = c("CTRL MI" = expression(bold("MI")), "CTRL MIF" = expression(bold("MIF"))))+
-  labs(tag = "c") +  theme(plot.tag = element_text(face = "bold", size = 20))
+  theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig2c_SN_CTRLS2
 
 
@@ -468,7 +468,7 @@ graph_Fig2d_MIF_OS2 <- graph_Fig2d_MIF_OS + ggtitle("Inhibition halos after osmo
   theme(legend.text = element_text(size = 12, face = "bold"))+
   theme(legend.title = element_text(size = 14, face = "bold"))+
   scale_x_discrete(labels = c("CTRL MIF" = expression(bold("MIF")), "KCl" = expression(bold("KCl"))))+
-  labs(tag = "d") + theme(plot.tag = element_text(face = "bold", size = 20))
+  theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig2d_MIF_OS2
 
 
@@ -552,7 +552,99 @@ graph_Fig2e_SN_MIF_OS2 <- graph_Fig2e_SN_MIF_OS + ggtitle("Inhibition halos prod
   theme(legend.text = element_text(size = 12, face = "bold"))+
   theme(legend.title = element_text(size = 14, face = "bold"))+
   scale_x_discrete(labels = c("CTRL MIF" = expression(bold("MIF")), "KCl" = expression(bold("KCl"))))+
-  labs(tag = "e") + theme(plot.tag = element_text(face = "bold", size = 20))
+  theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig2e_SN_MIF_OS2
 
 ### Every figure was manually saved in personal PC "Figures carpet" ###
+
+## For  complete figures including photographs of halos ##
+#Fig1
+install.packages("cowplot")
+library(cowplot)
+Figure_1a <- ggdraw() + 
+  draw_image("Figures/Fig1a_ggplot.png", scale = 0.95)
+graph_Fig1b_YPD_MI2 <- graph_Fig1b_YPD_MI2 + scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
+graph_Fig1d_MI_OS2 <- graph_Fig1d_MI_OS2 + scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
+
+Figure1_final <- plot_grid(
+  Figure_1a, graph_Fig1b_YPD2, 
+  graph_Fig1b_YPD_MI2, graph_Fig1d_MI_OS2,
+  labels = c("A", "B", "C", "D"),
+  label_size = 18,         
+  label_fontface = "bold",
+  ncol = 2,
+  rel_widths = c(1, 1.2),  
+  rel_heights = c(1, 1)
+)
+Figure1_final
+
+ggsave(
+  filename = "Figures/figure1_complete.pdf",
+  plot = Figure1_final,
+  width = 11,
+  height = 9,
+  units = "in"
+)
+
+ggsave(
+  filename = "Figures/figure1_complete.jpg",
+  plot = Figure1_final,
+  width = 11,
+  height = 9,
+  units = "in",
+  dpi = 300
+)
+
+#Fig2
+Figure_2a <- ggdraw() + 
+  draw_image("Figures/Fig2a.png", scale = 0.95)
+graph_Fig2b_CTRLS2 <- graph_Fig2b_CTRLS2 + scale_y_continuous(expand = expansion(mult = c(0.05, 0.18)))
+graph_Fig2c_SN_CTRLS2 <- graph_Fig2c_SN_CTRLS2 + scale_y_continuous(expand = expansion(mult = c(0.05, 0.18)))
+
+Figure2_abc <- plot_grid(
+  Figure_2a, graph_Fig2b_CTRLS2, graph_Fig2c_SN_CTRLS2,
+  labels = c("A", "B", "C"),
+  label_size = 18,         
+  label_fontface = "bold",
+  ncol = 3,
+  rel_widths = c(1, 1.5, 1.2),  
+  rel_heights = c(1, 1, 1)
+)
+Figure2_abc
+
+graph_Fig2d_MIF_OS2 <- graph_Fig2d_MIF_OS2 + scale_y_continuous(expand = expansion(mult = c(0.05, 0.18)))
+graph_Fig2e_SN_MIF_OS2 <- graph_Fig2e_SN_MIF_OS2 + scale_y_continuous(expand = expansion(mult = c(0.05, 0.18)))
+Figure2_cd <- plot_grid(
+  graph_Fig2d_MIF_OS2, graph_Fig2e_SN_MIF_OS2,
+  labels = c("D", "E"),
+  label_size = 18,         
+  label_fontface = "bold",
+  ncol = 2,
+  rel_widths = c(1, 1),  
+  rel_heights = c(1, 1)
+)
+Figure2_cd
+
+Figure2_final <- plot_grid(
+  Figure2_abc,
+  Figure2_cd,
+  ncol = 1,
+  rel_heights = c(1, 1)
+)
+Figure2_final
+ggsave(
+  filename = "Figures/figure2_complete.pdf",
+  plot = Figure2_final,
+  width = 15,
+  height = 9,
+  units = "in"
+)
+
+ggsave(
+  filename = "Figures/figure2_complete.jpg",
+  plot = Figure2_final,
+  width = 15,
+  height = 9,
+  units = "in",
+  dpi = 300
+)
