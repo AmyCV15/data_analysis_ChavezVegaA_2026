@@ -97,23 +97,27 @@ data_graph_YPD$condition <- factor(data_graph_YPD$condition,
 graph_Fig1b_YPD <- ggplot(data_graph_YPD, aes(x = treatment, y = area, fill = condition))+
   geom_bar(position = position_dodge(0.96), stat = "identity", colour = "black")+
   geom_errorbar(aes(ymin=area-se, ymax=area+se), width=0.2, position = position_dodge(0.9))+
-  scale_fill_manual(values = Col_YPD, name = "Condition", labels = c("YPD", "Washed cells", 
+  scale_fill_manual(values = Col_YPD, name = "Condition", labels = c("Untreated", "Washed cells", 
                                                                            "Non\nwashed cells"))
 graph_Fig1b_YPD  
-graph_Fig1b_YPD2 <- graph_Fig1b_YPD + ggtitle("Inhibition halos produced after\nosmotic shock in YPD medium")+
+graph_Fig1b_YPD2 <- graph_Fig1b_YPD + ggtitle("Inhibition halos produced after\nosmotic shock",
+                                              subtitle = "Cells grown in YPD medium")+
+  
   labs(x = "Treatment", y = bquote('Area'~(cm^2)))+
-  theme(plot.title = element_text(hjust = 0.2, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.text.x = element_text(vjust = 0.5, size = 12))+
+  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2.5)),
+        plot.subtitle = element_text(hjust = 0.5, lineheight = .8, size = rel(1.7)))+
+  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.text.x = element_text(vjust = 0.5, size = rel(1)))+
   theme(panel.background = element_rect(fill = 'gray98'), panel.grid = element_line(color = "gray90"))+
   theme(axis.text = element_text(size = 17, face = "bold", vjust = 0.5))+
-  geom_text(aes(x = 4.22, y = 0.43, label = "*"), stat = "unique",  size = 8)+
   theme(legend.text = element_text(size = 12, face = "bold"))+
   theme(legend.title = element_text(size = 14, face = "bold"))+
-  scale_x_discrete(labels = c("CTRL YPD" = expression(bold("YPD")), "KCl 0.25" = expression(bold("KCl 0.25 M")),
-                              "KCl 0.5" = expression(bold("KCL 0.5 M")), "KCl 1" = expression(bold("KCL 1 M"))))+
-  theme(plot.tag = element_text(face = "bold", size = 20))
+  scale_x_discrete(labels = c("CTRL YPD" = expression(bold("Untreated")), "KCl 0.25" = expression(bold("KCl 0.25 M")),
+                              "KCl 0.5" = expression(bold("KCl 0.5 M")), "KCl 1" = expression(bold("KCl 1 M"))),
+                   guide = guide_axis(angle = 25))+
+  geom_signif(y_position = 0.43, xmin = 1, xmax = 4.23, annotations = "*",
+              tip_length = 0.05, textsize=8, vjust = 0.4)
 graph_Fig1b_YPD2
 
 #### MI, MIF, YPD CTRLS ####
@@ -172,18 +176,18 @@ data_graph_YPD_MI
 data_graph_YPD_MI$treatment <- factor(data_graph_YPD_MI$treatment, 
                                    levels = c("CTRL YPD", "CTRL MI"))
 
-graph_Fig1b_YPD_MI <- ggplot(data_graph_YPD_MI, aes(x = treatment, y = area, fill = treatment))+
+graph_Fig1c_YPD_MI <- ggplot(data_graph_YPD_MI, aes(x = treatment, y = area, fill = treatment))+
   geom_bar(position = position_dodge(0.96), stat = "identity", colour = "black", width = 0.65)+
   geom_errorbar(aes(ymin=area-se, ymax=area+se), width=0.2, position = position_dodge(0.9))+
   scale_fill_manual(values = Col_YPD_MI)
-graph_Fig1b_YPD_MI 
+graph_Fig1c_YPD_MI 
 
-graph_Fig1b_YPD_MI2 <- graph_Fig1b_YPD_MI + ggtitle("Inhibition halos produced by cells\nin YPD and MI media")+
+graph_Fig1c_YPD_MI2 <- graph_Fig1b_YPD_MI + ggtitle("Inhibition halos produced by cells\ngrown YPD and MI media")+
   labs(x = "Medium", y = bquote('Area'~(cm^2)))+
-  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.text.x = element_text(vjust = 0.5, size = 12))+
+  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2.5)))+
+  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.text.x = element_text(vjust = 0.5, size = rel(1)))+
   theme(panel.background = element_rect(fill = 'gray98'), panel.grid = element_line(color = "gray90"))+
   theme(axis.text = element_text(size = 17, face = "bold", vjust = 0.5))+
   geom_signif(y_position = 0.5, xmin = 1, xmax = 2, annotations = "***",
@@ -191,7 +195,7 @@ graph_Fig1b_YPD_MI2 <- graph_Fig1b_YPD_MI + ggtitle("Inhibition halos produced b
   guides(fill="none")+
   scale_x_discrete(labels = c("CTRL YPD" = expression(bold("YPD")), "CTRL MI" = expression(bold("MI"))))+
   theme(plot.tag = element_text(face = "bold", size = 20))
-graph_Fig1b_YPD_MI2
+graph_Fig1c_YPD_MI2
 
 ### Figure 2b ### # # #
 #Needed colors palette
@@ -208,20 +212,21 @@ graph_Fig2b_CTRLS <- ggplot(data_graph_CTRLS, aes(x = treatment, y = area, fill 
   geom_errorbar(aes(ymin=area-se, ymax=area+se), width=0.2, position = position_dodge(0.9))+
   scale_fill_manual(values = Col_CTRLS)
 graph_Fig2b_CTRLS
-graph_Fig2b_CTRLS2 <- graph_Fig2b_CTRLS + ggtitle("Inhibition halos produced by cells\nin YPD, MI and MIF media")+
+graph_Fig2b_CTRLS2 <- graph_Fig2b_CTRLS + ggtitle("Inhibition halos produced by\ncells grown in different media")+
   labs(x = "Medium", y = bquote('Area'~(cm^2)))+
-  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
-  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.text.x = element_text(vjust = 0.5, size = 12))+
+  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2.3)))+
+  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.text.x = element_text(vjust = 0.5, size = rel(1)))+
   theme(panel.background = element_rect(fill = 'gray98'), panel.grid = element_line(color = "gray90"))+
   theme(axis.text = element_text(size = 17, face = "bold", vjust = 0.5))+
-  geom_signif(y_position = c(0.5, 0.6, 0.55), xmin = c(1, 1, 2), xmax = c(2, 3, 3), annotations = c("***", "***", ""),
+  geom_signif(y_position = c(0.5, 0.6), xmin = c(1, 1), xmax = c(2, 3), annotations = c("***", "***"),
               tip_length = 0.05, textsize=8, vjust = 0.4)+
+  geom_signif(y_position = 0.55, xmin = 2, xmax = 3, annotations = "NS", tip_length = 0.05, textsize = 5, 
+              vjust = 0.2)+
   guides(fill="none")+
   scale_x_discrete(labels = c("CTRL YPD" = expression(bold("YPD")), "CTRL MI" = expression(bold("MI")), 
-                              "CTRL MIF" = expression(bold("MIF"))))+
-  theme(plot.tag = element_text(face = "bold", size = 20))
+                              "CTRL MIF" = expression(bold("MIF"))))
   
 graph_Fig2b_CTRLS2
 
@@ -301,22 +306,26 @@ data_graph_MI_OS$condition <- factor(data_graph_MI_OS$condition,
 graph_Fig1d_MI_OS <- ggplot(data_graph_MI_OS, aes(x = treatment, y = area, fill = condition))+
   geom_bar(position = position_dodge(0.96), stat = "identity", colour = "black")+
   geom_errorbar(aes(ymin=area-se, ymax=area+se), width=0.2, position = position_dodge(0.9))+
-  scale_fill_manual(values = Col_MI, name = "Condition", labels = c("MI", "Washed cells", 
+  scale_fill_manual(values = Col_MI, name = "Condition", labels = c("Untreated", "Washed cells", 
                                                                      "Non\nwashed cells"))
 graph_Fig1d_MI_OS  
-graph_Fig1d_MI_OS2 <- graph_Fig1d_MI_OS + ggtitle("Inhibition halos after osmotic shock\nin MI medium")+
+graph_Fig1d_MI_OS2 <- graph_Fig1d_MI_OS + ggtitle("Inhibition halos produced after\nosmotic shock",
+                                                  subtitle = "Cells grown in MI medium")+
   labs(x = "Treatment", y = bquote('Area'~(cm^2)))+
-  theme(plot.title = element_text(hjust = 0.55, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.text.x = element_text(vjust = 0.5, size = 12))+
+  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2.5)),
+        plot.subtitle = element_text(hjust = 0.5, lineheight = .8, size = rel(1.7)))+
+  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.text.x = element_text(vjust = 0.5, size = rel(1)))+
   theme(panel.background = element_rect(fill = 'gray98'), panel.grid = element_line(color = "gray90"))+
   theme(axis.text = element_text(size = 17, face = "bold", vjust = 0.5))+
-  geom_signif(y_position = c(0.8, 0.72), xmin = c(1, 1.775), xmax = c(2.225, 2.225), annotations = c("***", ""),
+  geom_signif(y_position = 0.8, xmin = 1, xmax = 2.225, annotations = "***",
               tip_length = 0.05, textsize=8, vjust = 0.4)+
+  geom_signif(y_position = 0.72, xmin = 1.775, xmax = 2.225, annotations = "NS",  tip_length = 0.05, textsize = 5,
+              vjust = 0.2)+
   theme(legend.text = element_text(size = 12, face = "bold"))+
   theme(legend.title = element_text(size = 14, face = "bold"))+
-  scale_x_discrete(labels = c("CTRL MI" = expression(bold("MI")), "KCl" = expression(bold("KCl"))))+
+  scale_x_discrete(labels = c("CTRL MI" = expression(bold("Untreated")), "KCl" = expression(bold("KCl"))))+
   theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig1d_MI_OS2
 
@@ -373,12 +382,12 @@ graph_Fig2c_SN_CTRLS <- ggplot(data_graph_SN_CTRLS, aes(x = treatment, y = area,
   geom_errorbar(aes(ymin=area-se, ymax=area+se), width=0.2, position = position_dodge(0.9))+
   scale_fill_manual(values = Col_SN_CTRLS)
 graph_Fig2c_SN_CTRLS
-graph_Fig2c_SN_CTRLS2 <- graph_Fig2c_SN_CTRLS + ggtitle("Inhibition halos produced by\nsupernatant in MI and MIF media")+
+graph_Fig2c_SN_CTRLS2 <- graph_Fig2c_SN_CTRLS + ggtitle("Inhibition halos produced by supernatants of\ncells grown in different media")+
   labs(x = "Medium", y = bquote('Area'~(cm^2)))+
-  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.text.x = element_text(vjust = 0.5, size = 12))+
+  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2.3)))+
+  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.text.x = element_text(vjust = 0.5, size = rel(1)))+
   theme(panel.background = element_rect(fill = 'gray98'), panel.grid = element_line(color = "gray90"))+
   theme(axis.text = element_text(size = 17, face = "bold", vjust = 0.5))+
   geom_signif(y_position = 0.67, xmin = 1, xmax = 2, annotations = "***",
@@ -452,22 +461,24 @@ data_graph_MIF_OS$condition <- factor(data_graph_MIF_OS$condition,
 graph_Fig2d_MIF_OS <- ggplot(data_graph_MIF_OS, aes(x = treatment, y = area, fill = condition))+
   geom_bar(position = position_dodge(0.96), stat = "identity", colour = "black")+
   geom_errorbar(aes(ymin=area-se, ymax=area+se), width=0.2, position = position_dodge(0.9))+
-  scale_fill_manual(values = Col_MIF, name = "Condition", labels = c("MIF", "Washed cells", 
+  scale_fill_manual(values = Col_MIF, name = "Condition", labels = c("Untreated", "Washed cells", 
                                                                     "Non\nwashed cells"))
 graph_Fig2d_MIF_OS  
-graph_Fig2d_MIF_OS2 <- graph_Fig2d_MIF_OS + ggtitle("Inhibition halos after osmotic shock\nin MIF medium")+
+graph_Fig2d_MIF_OS2 <- graph_Fig2d_MIF_OS + ggtitle("Inhibition halos produced after\nosmotic shock",
+                                                    subtitle = "Cells grown in MIF medium")+
   labs(x = "Treatment", y = bquote('Area'~(cm^2)))+
-  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.text.x = element_text(vjust = 0.5, size = 12))+
+  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2.3)),
+        plot.subtitle = element_text(hjust = 0.5, lineheight = .8, size = rel(1.7)))+
+  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.text.x = element_text(vjust = 0.5, size = rel(1)))+
   theme(panel.background = element_rect(fill = 'gray98'), panel.grid = element_line(color = "gray90"))+
   theme(axis.text = element_text(size = 17, face = "bold", vjust = 0.5))+
   geom_signif(y_position = c(0.78, 0.73), xmin = c(1, 1.775), xmax = c(1.775, 2.225), annotations = c("***", "*"),
               tip_length = 0.05, textsize=8, vjust = 0.4)+
   theme(legend.text = element_text(size = 12, face = "bold"))+
   theme(legend.title = element_text(size = 14, face = "bold"))+
-  scale_x_discrete(labels = c("CTRL MIF" = expression(bold("MIF")), "KCl" = expression(bold("KCl"))))+
+  scale_x_discrete(labels = c("CTRL MIF" = expression(bold("Untreated")), "KCl" = expression(bold("KCl"))))+
   theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig2d_MIF_OS2
 
@@ -536,102 +547,161 @@ data_graph_SN_MIF_OS$condition <- factor(data_graph_MIF_OS$condition,
 graph_Fig2e_SN_MIF_OS <- ggplot(data_graph_SN_MIF_OS, aes(x = treatment, y = area, fill = condition))+
   geom_bar(position = position_dodge(0.96), stat = "identity", colour = "black", alpha = 0.5)+
   geom_errorbar(aes(ymin=area-se, ymax=area+se), width=0.2, position = position_dodge(0.9))+
-  scale_fill_manual(values = Col_MIF, name = "Condition", labels = c("MIF", "Washed cells", 
+  scale_fill_manual(values = Col_MIF, name = "Condition", labels = c("Untreated", "Washed cells", 
                                                                      "Non\nwashed cells"))
 graph_Fig2e_SN_MIF_OS 
-graph_Fig2e_SN_MIF_OS2 <- graph_Fig2e_SN_MIF_OS + ggtitle("Inhibition halos produced by supernatant\nafter osmotic shock in MIF medium")+
+graph_Fig2e_SN_MIF_OS2 <- graph_Fig2e_SN_MIF_OS + ggtitle("Inhibition halos produced by supernatant\nafter osmotic shock",
+                                                          subtitle = "Cells grown in MIF medium")+
   labs(x = "Treatment", y = bquote('Area'~(cm^2)))+
-  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(1.5)))+
-  theme(axis.text.x = element_text(vjust = 0.5, size = 12))+
+  theme(plot.title = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2.3)), 
+        plot.subtitle = element_text(hjust = 0.5, lineheight = .8, size = rel(1.7)))+
+  theme(axis.title.x = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.title.y = element_text(hjust = 0.5, lineheight = .8, face = "bold", size = rel(2)))+
+  theme(axis.text.x = element_text(vjust = 0.5, size = rel(1)))+
   theme(panel.background = element_rect(fill = 'gray98'), panel.grid = element_line(color = "gray90"))+
   theme(axis.text = element_text(size = 17, face = "bold", vjust = 0.5))+
-  geom_signif(y_position = c(0.24, 0.22), xmin = c(1, 1.775), xmax = c(1.775, 2.225), annotations = c("***", "***"),
+  geom_signif(y_position = c(0.24, 0.22, 0.26), xmin = c(1, 1.775, 1), xmax = c(1.775, 2.225, 2.225), annotations = c("***", "*", "***"),
               tip_length = 0.025, textsize=8, vjust = 0.4)+
   theme(legend.text = element_text(size = 12, face = "bold"))+
   theme(legend.title = element_text(size = 14, face = "bold"))+
-  scale_x_discrete(labels = c("CTRL MIF" = expression(bold("MIF")), "KCl" = expression(bold("KCl"))))+
+  scale_x_discrete(labels = c("CTRL MIF" = expression(bold("Untreated")), "KCl" = expression(bold("KCl"))))+
   theme(plot.tag = element_text(face = "bold", size = 20))
 graph_Fig2e_SN_MIF_OS2
 
 ### Every figure was manually saved in personal PC "Figures carpet" ###
 
-## For  complete figures including photographs of halos ##
-#Fig1
+## For  complete figures including photographs of halos #####
+# ##Fig1 ## ## ##
 install.packages("cowplot")
 library(cowplot)
 Figure_1a <- ggdraw() + 
-  draw_image("Figures/Fig1a_ggplot.png", scale = 0.95)
-graph_Fig1b_YPD_MI2 <- graph_Fig1b_YPD_MI2 + scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
-graph_Fig1d_MI_OS2 <- graph_Fig1d_MI_OS2 + scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
+  draw_image("Figures/Fig1a_modified.png", scale = 0.95)
+Figure_1a_new <- ggdraw() +
+  draw_image("Figures/Fig1a_new_modified.png", scale = 0.95)
 
-Figure1_final <- plot_grid(
-  Figure_1a, graph_Fig1b_YPD2, 
-  graph_Fig1b_YPD_MI2, graph_Fig1d_MI_OS2,
-  labels = c("A", "B", "C", "D"),
-  label_size = 18,         
+tema_paneles <- theme(
+  plot.title = element_text(size = 19, face = "bold", hjust = 0.5),
+  plot.subtitle = element_text(size = 15, hjust = 0.5),
+  plot.title.position = "plot", # Centra el título en todo el ancho del panel
+  plot.margin = margin(t = 22, r = 10, b = 10, l = 10) # Espacio arriba para la letra a, b, c...
+)
+graph_Fig1b_YPD2    <- graph_Fig1b_YPD2 + tema_paneles +  
+  scale_y_continuous(expand = expansion(mult = c(0.09, 0.10)))
+graph_Fig1c_YPD_MI2 <- graph_Fig1c_YPD_MI2 + tema_paneles + 
+  scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
+graph_Fig1d_MI_OS2  <- graph_Fig1d_MI_OS2 + tema_paneles + 
+  scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
+
+#uniendo paneles superiores 
+fila_superior <- plot_grid(
+  Figure_1a, Figure_1a_new, graph_Fig1b_YPD2,
+  labels = c("a", "b", "c"),
+  label_size = 18,
   label_fontface = "bold",
-  ncol = 2,
-  rel_widths = c(1, 1.2),  
+  ncol = 3,
+  rel_widths = c(1, 1, 1.15) # Da un poco más de ancho al panel c por su leyenda
+)
+#uniendo paneles inferiores
+fila_inferior <- plot_grid(
+  NULL, graph_Fig1c_YPD_MI2, graph_Fig1d_MI_OS2, NULL,
+  labels = c("", "d", "e", ""),
+  label_size = 18,
+  label_fontface = "bold",
+  ncol = 4,
+  rel_widths = c(0.4, 1, 1.15, 0.4) # Los 0.4 a los lados centran ambos gráficos
+)
+
+#todos los pabeles en la figura 1
+Figure1_final <- plot_grid(
+  fila_superior,
+  fila_inferior,
+  ncol = 1,
   rel_heights = c(1, 1)
 )
+
 Figure1_final
+#guardando figura 1 completa 
 
 ggsave(
-  filename = "Figures/figure1_complete.pdf",
+  filename = "Figures/figure1_complete_modified.pdf",
   plot = Figure1_final,
-  width = 11,
+  width = 16,
   height = 9,
   units = "in"
 )
 
 ggsave(
-  filename = "Figures/figure1_complete.jpg",
+  filename = "Figures/figure1_complete_modified.jpg",
   plot = Figure1_final,
-  width = 11,
+  width = 16,
   height = 9,
   units = "in",
   dpi = 300
 )
 
-#Fig2
+# ## Fig2 ## ## ##
 Figure_2a <- ggdraw() + 
-  draw_image("Figures/Fig2a.png", scale = 0.95)
-graph_Fig2b_CTRLS2 <- graph_Fig2b_CTRLS2 + scale_y_continuous(expand = expansion(mult = c(0.05, 0.18)))
-graph_Fig2c_SN_CTRLS2 <- graph_Fig2c_SN_CTRLS2 + scale_y_continuous(expand = expansion(mult = c(0.05, 0.18)))
+  draw_image("Figures/Fig2a_modified.png", scale = 0.95)
 
-Figure2_abc <- plot_grid(
+graph_Fig2b_CTRLS2 <- graph_Fig2b_CTRLS2 + tema_paneles +  
+  scale_y_continuous(expand = expansion(mult = c(0.09, 0.10)))
+graph_Fig2c_SN_CTRLS2 <-graph_Fig2c_SN_CTRLS2 + tema_paneles + 
+  scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
+graph_Fig2d_MIF_OS2 <- graph_Fig2d_MIF_OS2 + tema_paneles + 
+  scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
+graph_Fig2e_SN_MIF_OS2 <- graph_Fig2e_SN_MIF_OS2 + tema_paneles + 
+  scale_y_continuous(expand = expansion(mult = c(0.09, 0.18)))
+#superior
+Figure2_superior <- plot_grid(
   Figure_2a, graph_Fig2b_CTRLS2, graph_Fig2c_SN_CTRLS2,
-  labels = c("A", "B", "C"),
+  labels = c("a", "b", "c"),
   label_size = 18,         
   label_fontface = "bold",
   ncol = 3,
-  rel_widths = c(1, 1.5, 1.2),  
-  rel_heights = c(1, 1, 1)
+  rel_widths = c(1, 1, 1.15)  
 )
-Figure2_abc
-
-graph_Fig2d_MIF_OS2 <- graph_Fig2d_MIF_OS2 + scale_y_continuous(expand = expansion(mult = c(0.05, 0.18)))
-graph_Fig2e_SN_MIF_OS2 <- graph_Fig2e_SN_MIF_OS2 + scale_y_continuous(expand = expansion(mult = c(0.05, 0.18)))
-Figure2_cd <- plot_grid(
-  graph_Fig2d_MIF_OS2, graph_Fig2e_SN_MIF_OS2,
-  labels = c("D", "E"),
+Figure2_superior
+#inferior
+Figure2_inferior <- plot_grid(
+  NULL, graph_Fig2d_MIF_OS2, graph_Fig2e_SN_MIF_OS2, NULL,
+  labels = c("", "d", "e", ""),
   label_size = 18,         
   label_fontface = "bold",
-  ncol = 2,
-  rel_widths = c(1, 1),  
-  rel_heights = c(1, 1)
+  ncol = 4,
+  rel_widths = c(0.4, 1, 1.15, 0.4)
 )
-Figure2_cd
-
+Figure2_inferior
+#todos los paneles juntos
 Figure2_final <- plot_grid(
-  Figure2_abc,
-  Figure2_cd,
+  Figure2_superior,
+  Figure2_inferior,
   ncol = 1,
   rel_heights = c(1, 1)
 )
 Figure2_final
+
+#guardando figura completa ##
+ggsave(
+  filename = "Figures/figure2_complete_modified.pdf",
+  plot = Figure2_final,
+  width = 16,
+  height = 9,
+  units = "in"
+)
+
+ggsave(
+  filename = "Figures/figure2_complete_modified.jpg",
+  plot = Figure2_final,
+  width = 16,
+  height = 9,
+  units = "in",
+  dpi = 300
+)
+
+
+
+
+
 ggsave(
   filename = "Figures/figure2_complete.pdf",
   plot = Figure2_final,
